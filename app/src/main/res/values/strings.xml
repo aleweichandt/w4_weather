@@ -11,7 +11,12 @@
       -->
     <string name="app_name">Weather App</string>
     <string name="city">City</string>
+    <string name="city_not_set">No city has been set</string>
+    <string name="set_city_below">Search for your desired city by using the search field below</string>
+    <string name="search_failed">No results found for %1$s</string>
+    <string name="city_not_found">Please try to update your search or just tap on the retry button below.</string>
     <string name="retry">Retry</string>
+    <string name="loading">Loading results for %1$s</string>
     <string name="max">max: </string>
     <string name="min">min: </string>
 </resources>

@@ -13,10 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.data.model
+package com.example.androiddevchallenge.domain.model.report
 
-data class WeatherMainResponse(
-    val temp: Float,
-    val minTemp: Float, // "temp_min"
-    val maxTemp: Float // "temp_max
-)
+import com.example.androiddevchallenge.domain.model.weather.Temperature
+import com.example.androiddevchallenge.domain.model.weather.Weather
+import java.io.Serializable
+
+data class WeatherDayReport(
+    val current: Weather,
+    val maxTemperature: Temperature,
+    val minTemperature: Temperature
+) : Serializable

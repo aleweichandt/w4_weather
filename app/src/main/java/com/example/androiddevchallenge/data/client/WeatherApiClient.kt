@@ -15,35 +15,21 @@
  */
 package com.example.androiddevchallenge.data.client
 
-import com.example.androiddevchallenge.data.model.WeatherConditionResponse
-import com.example.androiddevchallenge.data.model.WeatherMainResponse
-import com.example.androiddevchallenge.data.model.WeatherResponse
-import com.example.androiddevchallenge.domain.model.report.WeatherReport
+import com.example.androiddevchallenge.domain.model.report.WeatherDayReport
 import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
 import com.example.androiddevchallenge.domain.repository.IWeatherApi
 import kotlinx.coroutines.delay
 
 class WeatherApiClient : IWeatherApi {
-    // TODO remove
-    private val mockResponse = WeatherResponse(
-        main = WeatherMainResponse(
-            22.1f,
-            25.2f,
-            18.7f
-        ),
-        weather = WeatherConditionResponse(
-            "clean"
-        ),
-    )
 
     override suspend fun getCurrentReportFor(
         city: String,
         unit: TemperatureUnit
-    ): WeatherReport? {
+    ): WeatherDayReport? {
         delay(3000L) // TODO remove
         if (city.length < 3) {
             return null
         }
-        return mockResponse.toWeatherDailyReport(unit)
+        return mockCurrentResponse.toWeatherDailyReport(unit)
     }
 }

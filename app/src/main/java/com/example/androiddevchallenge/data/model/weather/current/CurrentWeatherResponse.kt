@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.data.model
+package com.example.androiddevchallenge.data.model.weather.current
 
-import com.example.androiddevchallenge.domain.model.report.WeatherReport
+import com.example.androiddevchallenge.data.model.weather.core.WeatherConditionResponse
+import com.example.androiddevchallenge.domain.model.report.WeatherDayReport
 import com.example.androiddevchallenge.domain.model.weather.Temperature
 import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
 import com.example.androiddevchallenge.domain.model.weather.Weather
 
-data class WeatherResponse(
-    val main: WeatherMainResponse,
-    val weather: WeatherConditionResponse
+data class CurrentWeatherResponse(
+    val main: CurrentWeatherMainResponse,
+    val weather: List<WeatherConditionResponse>
 ) {
-    fun toWeatherDailyReport(unit: TemperatureUnit): WeatherReport {
-        return WeatherReport(
+    fun toWeatherDailyReport(unit: TemperatureUnit): WeatherDayReport =
+        WeatherDayReport(
             current = Weather(
                 temperature = Temperature(main.temp, unit),
-                climate = weather.toClimateCondition()
+                climate = weather[0].toClimateCondition()
             ),
             maxTemperature = Temperature(main.maxTemp, unit),
             minTemperature = Temperature(main.minTemp, unit)
         )
-    }
 }

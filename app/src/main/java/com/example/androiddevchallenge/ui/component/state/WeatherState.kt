@@ -27,7 +27,7 @@ import com.example.androiddevchallenge.domain.model.query.QueryState
 import com.example.androiddevchallenge.domain.model.query.QueryState.Failure
 import com.example.androiddevchallenge.domain.model.query.QueryState.Loading
 import com.example.androiddevchallenge.domain.model.query.QueryState.Success
-import com.example.androiddevchallenge.domain.model.report.WeatherReport
+import com.example.androiddevchallenge.domain.model.report.WeatherDayReport
 import com.example.androiddevchallenge.ui.local.LocalWeatherRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -38,10 +38,14 @@ fun WeatherState(
     city: String = "",
 ) {
     val weatherRepository = LocalWeatherRepository.current
-    val (state, setState) = rememberSaveable { mutableStateOf<QueryState<WeatherReport>>(QueryState.Ready) }
+    val (state, setState) = rememberSaveable {
+        mutableStateOf<QueryState<WeatherDayReport>>(
+            QueryState.Ready
+        )
+    }
     val search = suspend {
         if (city.isNotBlank()) {
-            weatherRepository.getReportFor(city = city).collect { setState(it) }
+            weatherRepository.getCurrentReportFor(city = city).collect { setState(it) }
         }
     }
     LaunchedEffect(key1 = city, block = { search() })
@@ -66,7 +70,7 @@ fun WeatherState(
             is Success -> WeatherSuccessState(
                 modifier = Modifier.fillMaxSize(),
                 city = city,
-                report = nextState.data
+                dayReport = nextState.data
             )
             else -> WeatherReadyState(modifier = Modifier.fillMaxSize())
         }

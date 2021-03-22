@@ -16,7 +16,7 @@
 package com.example.androiddevchallenge.domain.repository
 
 import com.example.androiddevchallenge.domain.model.query.QueryState
-import com.example.androiddevchallenge.domain.model.report.WeatherReport
+import com.example.androiddevchallenge.domain.model.report.WeatherDayReport
 import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.flow
 class WeatherRepository(private val api: IWeatherApi) {
     var unit: TemperatureUnit = TemperatureUnit.Celsius
 
-    suspend fun getReportFor(city: String): Flow<QueryState<WeatherReport>> =
+    suspend fun getCurrentReportFor(city: String): Flow<QueryState<WeatherDayReport>> =
         flow {
             emit(QueryState.Loading)
             api.getCurrentReportFor(city, unit)?.let {

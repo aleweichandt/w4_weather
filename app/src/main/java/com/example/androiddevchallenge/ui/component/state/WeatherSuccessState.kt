@@ -24,30 +24,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.androiddevchallenge.domain.model.report.WeatherReport
+import com.example.androiddevchallenge.domain.model.report.WeatherDayReport
 import com.example.androiddevchallenge.domain.model.weather.ClimateCondition
 import com.example.androiddevchallenge.domain.model.weather.Temperature
 import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
 import com.example.androiddevchallenge.domain.model.weather.Weather
-import com.example.androiddevchallenge.ui.component.card.WeatherReportCard
+import com.example.androiddevchallenge.ui.component.card.CurrentWeatherCard
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 @Composable
 fun WeatherSuccessState(
     modifier: Modifier = Modifier,
     city: String = "",
-    report: WeatherReport
+    dayReport: WeatherDayReport
 ) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Top
     ) {
-        WeatherReportCard(
+        CurrentWeatherCard(
             modifier = Modifier
                 .padding(8.dp)
                 .fillMaxWidth()
                 .wrapContentHeight(),
-            report = report,
+            report = dayReport,
             city = city
         )
     }
@@ -57,7 +57,7 @@ fun WeatherSuccessState(
 @Composable
 fun WeatherSuccessStatePreview() {
     val temp = Temperature(23f, TemperatureUnit.Celsius)
-    val report = WeatherReport(
+    val report = WeatherDayReport(
         Weather(temp, ClimateCondition.Clean),
         temp,
         temp
@@ -65,7 +65,7 @@ fun WeatherSuccessStatePreview() {
     MyTheme {
         WeatherSuccessState(
             city = "Malaga",
-            report = report
+            dayReport = report
         )
     }
 }

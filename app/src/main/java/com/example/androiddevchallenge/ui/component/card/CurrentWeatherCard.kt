@@ -36,7 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.R
-import com.example.androiddevchallenge.domain.model.report.WeatherReport
+import com.example.androiddevchallenge.domain.model.report.WeatherDayReport
 import com.example.androiddevchallenge.domain.model.weather.ClimateCondition
 import com.example.androiddevchallenge.domain.model.weather.Temperature
 import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
@@ -44,10 +44,10 @@ import com.example.androiddevchallenge.domain.model.weather.Weather
 import com.example.androiddevchallenge.ui.component.text.TemperatureText
 
 @Composable
-fun WeatherReportCard(
+fun CurrentWeatherCard(
     modifier: Modifier = Modifier,
     city: String = "",
-    report: WeatherReport
+    report: WeatherDayReport
 ) {
     Card(
         modifier = modifier,
@@ -102,10 +102,10 @@ fun WeatherReportCard(
 @Composable
 fun WeatherReportCardPreview() {
     val temp = Temperature(23f, TemperatureUnit.Celsius)
-    val report = WeatherReport(
+    val report = WeatherDayReport(
         Weather(temp, ClimateCondition.Clean),
         temp,
         temp
     )
-    WeatherReportCard(city = "Malaga", report = report)
+    CurrentWeatherCard(city = "Malaga", report = report)
 }

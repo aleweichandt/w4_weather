@@ -15,9 +15,9 @@
  */
 package com.example.androiddevchallenge.domain.repository
 
-import com.example.androiddevchallenge.domain.model.report.WeatherReport
+import com.example.androiddevchallenge.domain.model.report.WeatherDayReport
 import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
 
 interface IWeatherApi {
-    suspend fun getCurrentReportFor(city: String, unit: TemperatureUnit): WeatherReport?
+    suspend fun getCurrentReportFor(city: String, unit: TemperatureUnit): WeatherDayReport?
 }

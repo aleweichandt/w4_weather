@@ -18,20 +18,35 @@ package com.example.androiddevchallenge.ui.component.state
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import com.example.androiddevchallenge.domain.model.query.QueryState
 import com.example.androiddevchallenge.domain.model.query.QueryState.Failure
 import com.example.androiddevchallenge.domain.model.query.QueryState.Loading
 import com.example.androiddevchallenge.domain.model.query.QueryState.Success
 import com.example.androiddevchallenge.domain.model.report.WeatherReport
+import com.example.androiddevchallenge.ui.local.LocalWeatherRepository
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @Composable
 fun WeatherState(
     modifier: Modifier = Modifier,
     city: String = "",
-    state: QueryState<WeatherReport> = QueryState.Ready,
-    onRetry: () -> Unit = {}
 ) {
+    val weatherRepository = LocalWeatherRepository.current
+    val (state, setState) = rememberSaveable { mutableStateOf<QueryState<WeatherReport>>(QueryState.Ready) }
+    val search = suspend {
+        if (city.isNotBlank()) {
+            weatherRepository.getReportFor(city = city).collect { setState(it) }
+        }
+    }
+    LaunchedEffect(key1 = city, block = { search() })
+    val scope = rememberCoroutineScope()
+
     Crossfade(
         modifier = modifier,
         targetState = state
@@ -44,7 +59,9 @@ fun WeatherState(
             is Failure -> WeatherFailureState(
                 modifier = Modifier.fillMaxSize(),
                 city = city,
-                onRetry = onRetry
+                onRetry = {
+                    scope.launch { search() }
+                }
             )
             is Success -> WeatherSuccessState(
                 modifier = Modifier.fillMaxSize(),

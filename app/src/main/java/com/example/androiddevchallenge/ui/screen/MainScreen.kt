@@ -20,37 +20,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.androiddevchallenge.domain.model.query.QueryState
-import com.example.androiddevchallenge.domain.model.report.WeatherReport
 import com.example.androiddevchallenge.ui.component.search.SearchBar
 import com.example.androiddevchallenge.ui.component.state.WeatherState
-import com.example.androiddevchallenge.ui.local.LocalWeatherRepository
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen() {
-    val weatherRepository = LocalWeatherRepository.current
-    val (city, setCity) = remember { mutableStateOf("") }
-    val (state, setState) = remember { mutableStateOf<QueryState<WeatherReport>>(QueryState.Ready) }
-    val search = suspend {
-        if (city.isNotBlank()) {
-            weatherRepository.getReportFor(city = city).collect { setState(it) }
-        }
-    }
-    LaunchedEffect(key1 = city, block = { search() })
+    val (city, setCity) = rememberSaveable { mutableStateOf("") }
     Scaffold(
         modifier = Modifier.padding(8.dp),
         bottomBar = { MainScreenBottomBar(onSearch = setCity) }
     ) {
-        MainScreenBody(state = state, city = city, retry = search)
+        MainScreenBody(city = city)
     }
 }
 
@@ -65,14 +50,11 @@ fun MainScreenBottomBar(onSearch: (String) -> Unit) {
 }
 
 @Composable
-fun MainScreenBody(state: QueryState<WeatherReport>, city: String, retry: suspend () -> Unit) {
-    val scope = rememberCoroutineScope()
+fun MainScreenBody(city: String) {
     WeatherState(
         modifier = Modifier
             .fillMaxWidth(),
-        state = state,
-        city = city,
-        onRetry = { scope.launch { retry() } }
+        city = city
     )
 }
 

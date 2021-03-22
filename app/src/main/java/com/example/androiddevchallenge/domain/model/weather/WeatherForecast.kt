@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.domain.repository
+package com.example.androiddevchallenge.domain.model.weather
 
-import com.example.androiddevchallenge.domain.model.report.WeatherDayReport
-import com.example.androiddevchallenge.domain.model.report.WeatherForecastReport
-import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
+import java.io.Serializable
+import java.util.Date
 
-interface IWeatherApi {
-    suspend fun getCurrentReportFor(city: String, unit: TemperatureUnit): WeatherDayReport?
-    suspend fun getForecastReportFor(city: String, unit: TemperatureUnit): WeatherForecastReport?
-}
+data class WeatherForecast(
+    val date: Date,
+    val climate: ClimateCondition,
+    val maxTemperature: Temperature,
+    val minTemperature: Temperature,
+) : Serializable

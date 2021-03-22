@@ -16,6 +16,7 @@
 package com.example.androiddevchallenge.data.client
 
 import com.example.androiddevchallenge.domain.model.report.WeatherDayReport
+import com.example.androiddevchallenge.domain.model.report.WeatherForecastReport
 import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
 import com.example.androiddevchallenge.domain.repository.IWeatherApi
 import kotlinx.coroutines.delay
@@ -31,5 +32,16 @@ class WeatherApiClient : IWeatherApi {
             return null
         }
         return mockCurrentResponse.toWeatherDailyReport(unit)
+    }
+
+    override suspend fun getForecastReportFor(
+        city: String,
+        unit: TemperatureUnit
+    ): WeatherForecastReport? {
+        delay(3000L) // TODO remove
+        if (city.length < 3) {
+            return null
+        }
+        return mockForecastResponse.toWeatherForecastReport(unit)
     }
 }

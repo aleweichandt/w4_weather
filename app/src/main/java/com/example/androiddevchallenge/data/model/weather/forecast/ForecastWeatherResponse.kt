@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.domain.repository
+package com.example.androiddevchallenge.data.model.weather.forecast
 
-import com.example.androiddevchallenge.domain.model.report.WeatherDayReport
 import com.example.androiddevchallenge.domain.model.report.WeatherForecastReport
 import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
 
-interface IWeatherApi {
-    suspend fun getCurrentReportFor(city: String, unit: TemperatureUnit): WeatherDayReport?
-    suspend fun getForecastReportFor(city: String, unit: TemperatureUnit): WeatherForecastReport?
+data class ForecastWeatherResponse(
+    val list: List<ForecastWeatherDayResponse>,
+) {
+    fun toWeatherForecastReport(unit: TemperatureUnit): WeatherForecastReport =
+        WeatherForecastReport(
+            days = list.map { it.toWeatherForecast(unit) }
+        )
 }

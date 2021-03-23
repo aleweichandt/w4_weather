@@ -16,27 +16,32 @@
 package com.example.androiddevchallenge.data.model.weather.core
 
 import com.example.androiddevchallenge.domain.model.weather.ClimateCondition
-import java.util.Locale
 
 data class WeatherConditionResponse(
-    val main: String,
+    val id: Int
 ) {
     companion object {
-        private const val CLEAN_WEATHER = "clean"
-        private const val PARTIAL_CLOUD_WEATHER = "partial cloud"
-        private const val CLOUD_WEATHER = "cloud"
-        private const val RAIN_WEATHER = "rain"
-        private const val STORM_WEATHER = "storm"
-        private const val SNOW_WEATHER = "snow"
+
+        private val STORM_WEATHER_RANGE = 200..299
+        private val DRIZZLE_WEATHER_RANGE = 300..399
+        private val RAIN_WEATHER_RANGE = 500..599
+        private val SNOW_WEATHER_RANGE = 600..699
+        private val EVENTS_WEATHER_RANGE = 700..799
+        private val CLEAR_WEATHER_CODE = 800..800
+        private val PARTIAL_WEATHER_RANGE = 801..801
+        private val CLOUD_WEATHER_RANGE = 802..804
     }
 
     fun toClimateCondition(): ClimateCondition =
-        when (main.toLowerCase(Locale.getDefault())) {
-            PARTIAL_CLOUD_WEATHER -> ClimateCondition.PartialClouds
-            CLOUD_WEATHER -> ClimateCondition.Clouds
-            RAIN_WEATHER -> ClimateCondition.Rain
-            STORM_WEATHER -> ClimateCondition.Storm
-            SNOW_WEATHER -> ClimateCondition.Snow
-            else -> ClimateCondition.Clean
+        when {
+            STORM_WEATHER_RANGE.contains(id) -> ClimateCondition.Storm
+            DRIZZLE_WEATHER_RANGE.contains(id) -> ClimateCondition.Storm
+            RAIN_WEATHER_RANGE.contains(id) -> ClimateCondition.Rain
+            SNOW_WEATHER_RANGE.contains(id) -> ClimateCondition.Snow
+            EVENTS_WEATHER_RANGE.contains(id) -> ClimateCondition.Clouds
+            CLOUD_WEATHER_RANGE.contains(id) -> ClimateCondition.Clouds
+            PARTIAL_WEATHER_RANGE.contains(id) -> ClimateCondition.PartialClouds
+            CLEAR_WEATHER_CODE.contains(id) -> ClimateCondition.Clean
+            else -> ClimateCondition.PartialClouds
         }
 }

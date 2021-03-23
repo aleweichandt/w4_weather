@@ -27,6 +27,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.androiddevchallenge.domain.model.weather.Temperature
 import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
+import com.example.androiddevchallenge.ui.theme.MyTheme
 
 @Composable
 fun TemperatureText(
@@ -57,5 +58,7 @@ fun TemperatureText(
 @Composable
 fun TemperatureTextPreview() {
     val temp = Temperature(33.1f, TemperatureUnit.Celsius)
-    TemperatureText(temperature = temp)
+    MyTheme {
+        TemperatureText(temperature = temp)
+    }
 }

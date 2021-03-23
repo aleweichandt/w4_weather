@@ -19,11 +19,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -31,51 +29,44 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.androiddevchallenge.R
-import com.example.androiddevchallenge.domain.model.report.WeatherDayReport
 import com.example.androiddevchallenge.domain.model.weather.ClimateCondition
 import com.example.androiddevchallenge.domain.model.weather.Temperature
 import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
-import com.example.androiddevchallenge.domain.model.weather.Weather
+import com.example.androiddevchallenge.domain.model.weather.WeatherForecast
 import com.example.androiddevchallenge.ui.component.text.TemperatureText
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
-fun CurrentWeatherCard(
+fun ForecastWeatherCard(
     modifier: Modifier = Modifier,
-    city: String = "",
-    report: WeatherDayReport
+    forecast: WeatherForecast
 ) {
+    val dow = SimpleDateFormat("EEE", Locale.getDefault()).format(forecast.date)
     Card(
         modifier = modifier,
         elevation = 4.dp
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp)
+                .padding(8.dp)
                 .wrapContentSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
             Text(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(),
-                text = city,
-                style = MaterialTheme.typography.h4,
-                textAlign = TextAlign.Start
+                    .wrapContentSize(),
+                text = dow,
+                style = MaterialTheme.typography.h5,
+                textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(24.dp))
-            TemperatureText(
-                modifier = Modifier.wrapContentSize(),
-                temperature = report.current.temperature,
-                style = MaterialTheme.typography.h3
-            )
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             Row(
                 modifier = Modifier.wrapContentSize(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -83,16 +74,22 @@ fun CurrentWeatherCard(
             ) {
                 TemperatureText(
                     modifier = Modifier.wrapContentSize(),
-                    temperature = report.minTemperature,
-                    style = MaterialTheme.typography.body1,
-                    prefix = stringResource(id = R.string.min)
+                    temperature = forecast.minTemperature,
+                    style = MaterialTheme.typography.body1
                 )
-                Spacer(modifier = Modifier.width(24.dp))
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    modifier = Modifier
+                        .wrapContentSize(),
+                    text = "/",
+                    style = MaterialTheme.typography.body1,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.width(8.dp))
                 TemperatureText(
                     modifier = Modifier.wrapContentSize(),
-                    temperature = report.maxTemperature,
-                    style = MaterialTheme.typography.body1,
-                    prefix = stringResource(id = R.string.max)
+                    temperature = forecast.maxTemperature,
+                    style = MaterialTheme.typography.body1
                 )
             }
         }
@@ -101,14 +98,15 @@ fun CurrentWeatherCard(
 
 @Preview
 @Composable
-fun WeatherReportCardPreview() {
+fun ForecastWeatherCardPreview() {
     val temp = Temperature(23f, TemperatureUnit.Celsius)
-    val report = WeatherDayReport(
-        Weather(temp, ClimateCondition.Clean),
-        temp,
-        temp
+    val forecast = WeatherForecast(
+        date = Date(),
+        climate = ClimateCondition.Clean,
+        maxTemperature = temp,
+        minTemperature = temp
     )
     MyTheme {
-        CurrentWeatherCard(city = "Malaga", report = report)
+        ForecastWeatherCard(forecast = forecast)
     }
 }

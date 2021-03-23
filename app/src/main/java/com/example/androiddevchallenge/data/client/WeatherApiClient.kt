@@ -39,7 +39,7 @@ class WeatherApiClient : IWeatherApi {
         unit: TemperatureUnit
     ): WeatherForecastReport? {
         delay(3000L) // TODO remove
-        if (city.length < 3) {
+        if (city.length < 4) {
             return null
         }
         return mockForecastResponse.toWeatherForecastReport(unit)

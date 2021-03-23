@@ -15,6 +15,8 @@
  */
 package com.example.androiddevchallenge.ui.screen
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -26,13 +28,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.ui.component.search.SearchBar
-import com.example.androiddevchallenge.ui.component.state.WeatherState
+import com.example.androiddevchallenge.ui.component.state.CurrentWeatherStateRender
+import com.example.androiddevchallenge.ui.component.state.forecast.ForecastWeatherStateRender
 
 @Composable
 fun MainScreen() {
     val (city, setCity) = rememberSaveable { mutableStateOf("") }
     Scaffold(
-        modifier = Modifier.padding(8.dp),
         bottomBar = { MainScreenBottomBar(onSearch = setCity) }
     ) {
         MainScreenBody(city = city)
@@ -43,6 +45,7 @@ fun MainScreen() {
 fun MainScreenBottomBar(onSearch: (String) -> Unit) {
     SearchBar(
         modifier = Modifier
+            .padding(8.dp)
             .fillMaxWidth()
             .wrapContentHeight(),
         onSearch = onSearch
@@ -51,11 +54,23 @@ fun MainScreenBottomBar(onSearch: (String) -> Unit) {
 
 @Composable
 fun MainScreenBody(city: String) {
-    WeatherState(
-        modifier = Modifier
-            .fillMaxWidth(),
-        city = city
-    )
+    val (dayReportState, forecastReportState, retry) = weatherDataSource(city = city)
+    Column(modifier = Modifier.fillMaxSize()) {
+        ForecastWeatherStateRender(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            state = forecastReportState
+        )
+        CurrentWeatherStateRender(
+            modifier = Modifier
+                .padding(bottom = 48.dp)
+                .fillMaxSize(),
+            city = city,
+            state = dayReportState,
+            onRetry = retry
+        )
+    }
 }
 
 @Preview

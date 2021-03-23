@@ -13,9 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.data.model.weather.forecast
+package com.example.androiddevchallenge.ui.component.state.forecast
 
-data class ForecastWeatherTempResponse(
-    val min: Float,
-    val max: Float
-)
+import androidx.compose.material.LinearProgressIndicator
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.androiddevchallenge.ui.theme.MyTheme
+
+@Composable
+fun ForecastReadyState(
+    modifier: Modifier = Modifier,
+) {
+    LinearProgressIndicator(
+        modifier = modifier,
+        progress = 0f
+    )
+}
+
+@Preview
+@Composable
+fun ForecastReadyStatePreview() {
+    MyTheme {
+        ForecastReadyState()
+    }
+}

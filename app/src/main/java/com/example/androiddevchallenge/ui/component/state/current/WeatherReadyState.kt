@@ -13,16 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.ui.component.state
+package com.example.androiddevchallenge.ui.component.state.current
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -33,15 +31,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.R
-import com.example.androiddevchallenge.ui.component.button.RetryButton
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 @Composable
-fun WeatherFailureState(
-    modifier: Modifier = Modifier,
-    city: String = "",
-    onRetry: () -> Unit = {}
-) {
+fun WeatherReadyState(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center
@@ -52,8 +45,7 @@ fun WeatherFailureState(
                 .wrapContentHeight()
                 .align(Alignment.CenterHorizontally),
             text = stringResource(
-                id = R.string.search_failed,
-                city
+                id = R.string.city_not_set
             ),
             style = MaterialTheme.typography.h5,
             textAlign = TextAlign.Center
@@ -65,33 +57,18 @@ fun WeatherFailureState(
                 .wrapContentHeight()
                 .align(Alignment.CenterHorizontally),
             text = stringResource(
-                id = R.string.city_not_found
+                id = R.string.set_city_below
             ),
             style = MaterialTheme.typography.body1,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(16.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-        ) {
-            RetryButton(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .align(Alignment.Center),
-                onClick = onRetry
-            )
-        }
     }
 }
 
 @Preview
 @Composable
-fun WeatherFailureStatePreview() {
+fun WeatherReadyStatePreview() {
     MyTheme {
-        WeatherFailureState(
-            city = "Malaga"
-        )
+        WeatherReadyState()
     }
 }

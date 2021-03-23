@@ -13,59 +13,64 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.ui.component.state
+package com.example.androiddevchallenge.ui.component.state.current
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.androiddevchallenge.domain.model.report.WeatherDayReport
-import com.example.androiddevchallenge.domain.model.weather.ClimateCondition
-import com.example.androiddevchallenge.domain.model.weather.Temperature
-import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
-import com.example.androiddevchallenge.domain.model.weather.Weather
-import com.example.androiddevchallenge.ui.component.card.CurrentWeatherCard
+import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 @Composable
-fun WeatherSuccessState(
+fun WeatherLoadingState(
     modifier: Modifier = Modifier,
-    city: String = "",
-    dayReport: WeatherDayReport
+    city: String = ""
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.Center
     ) {
-        CurrentWeatherCard(
+        Text(
             modifier = Modifier
-                .padding(8.dp)
                 .fillMaxWidth()
-                .wrapContentHeight(),
-            report = dayReport,
-            city = city
+                .wrapContentHeight()
+                .align(Alignment.CenterHorizontally),
+            text = stringResource(
+                id = R.string.loading,
+                city
+            ),
+            style = MaterialTheme.typography.h5,
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        CircularProgressIndicator(
+            modifier = Modifier
+                .wrapContentSize()
+                .align(Alignment.CenterHorizontally),
         )
     }
 }
 
 @Preview
 @Composable
-fun WeatherSuccessStatePreview() {
-    val temp = Temperature(23f, TemperatureUnit.Celsius)
-    val report = WeatherDayReport(
-        Weather(temp, ClimateCondition.Clean),
-        temp,
-        temp
-    )
+fun WeatherLoadingStatePreview() {
     MyTheme {
-        WeatherSuccessState(
-            city = "Malaga",
-            dayReport = report
+        WeatherLoadingState(
+            city = "Malaga"
         )
     }
 }

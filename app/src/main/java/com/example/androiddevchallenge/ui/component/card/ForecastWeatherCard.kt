@@ -21,7 +21,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -36,6 +36,7 @@ import com.example.androiddevchallenge.domain.model.weather.ClimateCondition
 import com.example.androiddevchallenge.domain.model.weather.Temperature
 import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
 import com.example.androiddevchallenge.domain.model.weather.WeatherForecast
+import com.example.androiddevchallenge.ui.component.icon.ClimateIcon
 import com.example.androiddevchallenge.ui.component.text.TemperatureText
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import java.text.SimpleDateFormat
@@ -66,7 +67,11 @@ fun ForecastWeatherCard(
                 style = MaterialTheme.typography.h5,
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            ClimateIcon(
+                modifier = Modifier.size(48.dp),
+                condition = forecast.climate
+            )
+            Spacer(modifier = Modifier.height(4.dp))
             Row(
                 modifier = Modifier.wrapContentSize(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -77,15 +82,12 @@ fun ForecastWeatherCard(
                     temperature = forecast.minTemperature,
                     style = MaterialTheme.typography.body2
                 )
-                Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    modifier = Modifier
-                        .wrapContentSize(),
-                    text = "/",
+                    modifier = Modifier.wrapContentSize(),
+                    text = " / ",
                     style = MaterialTheme.typography.body2,
                     textAlign = TextAlign.Center
                 )
-                Spacer(modifier = Modifier.width(8.dp))
                 TemperatureText(
                     modifier = Modifier.wrapContentSize(),
                     temperature = forecast.maxTemperature,

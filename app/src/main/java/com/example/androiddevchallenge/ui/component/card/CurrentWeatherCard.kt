@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
@@ -41,6 +42,7 @@ import com.example.androiddevchallenge.domain.model.weather.ClimateCondition
 import com.example.androiddevchallenge.domain.model.weather.Temperature
 import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
 import com.example.androiddevchallenge.domain.model.weather.Weather
+import com.example.androiddevchallenge.ui.component.icon.ClimateIcon
 import com.example.androiddevchallenge.ui.component.text.TemperatureText
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
@@ -69,7 +71,19 @@ fun CurrentWeatherCard(
                 style = MaterialTheme.typography.h4,
                 textAlign = TextAlign.Start
             )
-            Spacer(modifier = Modifier.height(24.dp))
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                text = stringResource(id = R.string.today),
+                style = MaterialTheme.typography.h5,
+                textAlign = TextAlign.Start
+            )
+            ClimateIcon(
+                modifier = Modifier.size(72.dp),
+                condition = report.current.climate
+            )
+            Spacer(modifier = Modifier.height(8.dp))
             TemperatureText(
                 modifier = Modifier.wrapContentSize(),
                 temperature = report.current.temperature,

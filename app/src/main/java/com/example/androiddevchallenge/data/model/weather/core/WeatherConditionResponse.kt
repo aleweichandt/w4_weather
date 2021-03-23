@@ -16,12 +16,27 @@
 package com.example.androiddevchallenge.data.model.weather.core
 
 import com.example.androiddevchallenge.domain.model.weather.ClimateCondition
+import java.util.Locale
 
 data class WeatherConditionResponse(
     val main: String,
 ) {
+    companion object {
+        private const val CLEAN_WEATHER = "clean"
+        private const val PARTIAL_CLOUD_WEATHER = "partial cloud"
+        private const val CLOUD_WEATHER = "cloud"
+        private const val RAIN_WEATHER = "rain"
+        private const val STORM_WEATHER = "storm"
+        private const val SNOW_WEATHER = "snow"
+    }
+
     fun toClimateCondition(): ClimateCondition =
-        when (main) {
+        when (main.toLowerCase(Locale.getDefault())) {
+            PARTIAL_CLOUD_WEATHER -> ClimateCondition.PartialClouds
+            CLOUD_WEATHER -> ClimateCondition.Clouds
+            RAIN_WEATHER -> ClimateCondition.Rain
+            STORM_WEATHER -> ClimateCondition.Storm
+            SNOW_WEATHER -> ClimateCondition.Snow
             else -> ClimateCondition.Clean
         }
 }

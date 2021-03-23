@@ -47,7 +47,7 @@ val mockForecastResponse = ForecastWeatherResponse(
             ),
             weather = listOf(
                 WeatherConditionResponse(
-                    main = "clean"
+                    main = "partial cloud"
                 )
             )
         ),
@@ -59,7 +59,7 @@ val mockForecastResponse = ForecastWeatherResponse(
             ),
             weather = listOf(
                 WeatherConditionResponse(
-                    main = "clean"
+                    main = "cloud"
                 )
             )
         ),
@@ -71,7 +71,7 @@ val mockForecastResponse = ForecastWeatherResponse(
             ),
             weather = listOf(
                 WeatherConditionResponse(
-                    main = "clean"
+                    main = "rain"
                 )
             )
         ),
@@ -83,7 +83,7 @@ val mockForecastResponse = ForecastWeatherResponse(
             ),
             weather = listOf(
                 WeatherConditionResponse(
-                    main = "clean"
+                    main = "storm"
                 )
             )
         ),
@@ -95,7 +95,7 @@ val mockForecastResponse = ForecastWeatherResponse(
             ),
             weather = listOf(
                 WeatherConditionResponse(
-                    main = "clean"
+                    main = "snow"
                 )
             )
         ),
@@ -107,7 +107,7 @@ val mockForecastResponse = ForecastWeatherResponse(
             ),
             weather = listOf(
                 WeatherConditionResponse(
-                    main = "clean"
+                    main = "partial cloud"
                 )
             )
         ),

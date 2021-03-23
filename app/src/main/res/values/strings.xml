@@ -18,6 +18,7 @@
     <string name="forecast_failed">Failed to get weather forecast.</string>
     <string name="retry">Retry</string>
     <string name="loading">Loading results for %1$s</string>
+    <string name="today">Today</string>
     <string name="max">max: </string>
     <string name="min">min: </string>
     <string name="next_days">Next days</string>

@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.ui.component.button.RetryButton
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import java.util.Locale
 
 @Composable
 fun WeatherFailureState(
@@ -53,7 +54,7 @@ fun WeatherFailureState(
                 .align(Alignment.CenterHorizontally),
             text = stringResource(
                 id = R.string.search_failed,
-                city
+                city.capitalize(Locale.getDefault())
             ),
             style = MaterialTheme.typography.h5,
             textAlign = TextAlign.Center

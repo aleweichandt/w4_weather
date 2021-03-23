@@ -45,6 +45,7 @@ import com.example.androiddevchallenge.domain.model.weather.Weather
 import com.example.androiddevchallenge.ui.component.icon.ClimateIcon
 import com.example.androiddevchallenge.ui.component.text.TemperatureText
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import java.util.Locale
 
 @Composable
 fun CurrentWeatherCard(
@@ -67,7 +68,7 @@ fun CurrentWeatherCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
-                text = city,
+                text = city.capitalize(Locale.getDefault()),
                 style = MaterialTheme.typography.h4,
                 textAlign = TextAlign.Start
             )

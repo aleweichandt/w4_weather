@@ -20,12 +20,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -52,6 +54,12 @@ fun SearchBar(modifier: Modifier = Modifier, onSearch: (String) -> Unit = {}) {
             ),
             label = {
                 Text(text = stringResource(id = R.string.city))
+            },
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_place),
+                    contentDescription = null
+                )
             }
         )
     }

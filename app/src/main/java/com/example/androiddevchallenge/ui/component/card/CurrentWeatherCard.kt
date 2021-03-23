@@ -84,14 +84,14 @@ fun CurrentWeatherCard(
                 TemperatureText(
                     modifier = Modifier.wrapContentSize(),
                     temperature = report.minTemperature,
-                    style = MaterialTheme.typography.body1,
+                    style = MaterialTheme.typography.body2,
                     prefix = stringResource(id = R.string.min)
                 )
                 Spacer(modifier = Modifier.width(24.dp))
                 TemperatureText(
                     modifier = Modifier.wrapContentSize(),
                     temperature = report.maxTemperature,
-                    style = MaterialTheme.typography.body1,
+                    style = MaterialTheme.typography.body2,
                     prefix = stringResource(id = R.string.max)
                 )
             }

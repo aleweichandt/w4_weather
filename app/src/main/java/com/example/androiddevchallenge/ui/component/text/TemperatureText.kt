@@ -22,9 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.example.androiddevchallenge.domain.model.weather.Temperature
 import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
 import com.example.androiddevchallenge.ui.theme.MyTheme
@@ -36,20 +36,22 @@ fun TemperatureText(
     temperature: Temperature,
     prefix: String? = null
 ) {
+    val prefixStyle = SpanStyle(fontSize = style.fontSize.div(1.15f))
+    val suffixStyle = SpanStyle(letterSpacing = 1.15.sp)
     Text(
         modifier = modifier,
         style = style,
         text = buildAnnotatedString {
             prefix?.run {
-                withStyle(style = SpanStyle(fontWeight = FontWeight.Light)) {
+                withStyle(style = prefixStyle) {
                     append(prefix)
                 }
                 append(" ")
             }
-            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                append("%.1f".format(temperature.value))
+            append("%.1f".format(temperature.value))
+            withStyle(style = suffixStyle) {
+                append(temperature.unit.symbol)
             }
-            append(temperature.unit.symbol)
         },
     )
 }

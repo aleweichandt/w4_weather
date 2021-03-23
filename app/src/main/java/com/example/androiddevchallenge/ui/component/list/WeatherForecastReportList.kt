@@ -54,7 +54,7 @@ fun WeatherForecastReportList(
                 modifier = Modifier
                     .padding(start = 8.dp),
                 text = stringResource(id = R.string.next_days),
-                style = MaterialTheme.typography.h4,
+                style = MaterialTheme.typography.h6,
                 textAlign = TextAlign.Start
             )
             LazyRow(

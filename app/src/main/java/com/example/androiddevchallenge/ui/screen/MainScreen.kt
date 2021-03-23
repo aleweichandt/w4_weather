@@ -28,7 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.ui.component.search.SearchBar
-import com.example.androiddevchallenge.ui.component.state.CurrentWeatherStateRender
+import com.example.androiddevchallenge.ui.component.state.current.CurrentWeatherStateRender
 import com.example.androiddevchallenge.ui.component.state.forecast.ForecastWeatherStateRender
 
 @Composable
@@ -64,8 +64,7 @@ fun MainScreenBody(city: String) {
         )
         CurrentWeatherStateRender(
             modifier = Modifier
-                .padding(bottom = 48.dp)
-                .fillMaxSize(),
+                .padding(bottom = 48.dp, start = 16.dp, end = 16.dp),
             city = city,
             state = dayReportState,
             onRetry = retry

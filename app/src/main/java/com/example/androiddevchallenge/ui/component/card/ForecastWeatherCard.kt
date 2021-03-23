@@ -75,21 +75,21 @@ fun ForecastWeatherCard(
                 TemperatureText(
                     modifier = Modifier.wrapContentSize(),
                     temperature = forecast.minTemperature,
-                    style = MaterialTheme.typography.body1
+                    style = MaterialTheme.typography.body2
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     modifier = Modifier
                         .wrapContentSize(),
                     text = "/",
-                    style = MaterialTheme.typography.body1,
+                    style = MaterialTheme.typography.body2,
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 TemperatureText(
                     modifier = Modifier.wrapContentSize(),
                     temperature = forecast.maxTemperature,
-                    style = MaterialTheme.typography.body1
+                    style = MaterialTheme.typography.body2
                 )
             }
         }

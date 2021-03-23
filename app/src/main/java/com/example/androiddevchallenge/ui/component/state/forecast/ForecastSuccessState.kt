@@ -15,9 +15,11 @@
  */
 package com.example.androiddevchallenge.ui.component.state.forecast
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.domain.model.report.WeatherForecastReport
 import com.example.androiddevchallenge.domain.model.weather.ClimateCondition
 import com.example.androiddevchallenge.domain.model.weather.Temperature
@@ -33,7 +35,7 @@ fun ForecastSuccessState(
     report: WeatherForecastReport
 ) {
     WeatherForecastReportList(
-        modifier = modifier,
+        modifier = modifier.padding(top = 8.dp),
         report = report
     )
 }

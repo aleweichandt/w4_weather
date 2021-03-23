@@ -28,7 +28,7 @@ data class ForecastWeatherDayResponse(
 ) {
     fun toWeatherForecast(unit: TemperatureUnit): WeatherForecast =
         WeatherForecast(
-            date = Date(dt),
+            date = Date(dt * 1000),
             climate = weather[0].toClimateCondition(),
             maxTemperature = Temperature(temp.max, unit),
             minTemperature = Temperature(temp.min, unit)

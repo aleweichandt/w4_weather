@@ -35,10 +35,13 @@ val mockCurrentResponse = CurrentWeatherResponse(
     ),
 )
 
+fun unitTimestampForDays(days: Long = 0) =
+    (System.currentTimeMillis() + TimeUnit.DAYS.toMillis(days)) / 1000
+
 val mockForecastResponse = ForecastWeatherResponse(
     list = listOf(
         ForecastWeatherDayResponse(
-            dt = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1),
+            dt = unitTimestampForDays(1),
             temp = ForecastWeatherTempResponse(
                 max = 26.1f,
                 min = 12.8f
@@ -48,7 +51,7 @@ val mockForecastResponse = ForecastWeatherResponse(
             )
         ),
         ForecastWeatherDayResponse(
-            dt = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(2),
+            dt = unitTimestampForDays(2),
             temp = ForecastWeatherTempResponse(
                 max = 26.1f,
                 min = 12.8f
@@ -58,7 +61,7 @@ val mockForecastResponse = ForecastWeatherResponse(
             )
         ),
         ForecastWeatherDayResponse(
-            dt = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(3),
+            dt = unitTimestampForDays(3),
             temp = ForecastWeatherTempResponse(
                 max = 26.1f,
                 min = 12.8f
@@ -68,7 +71,7 @@ val mockForecastResponse = ForecastWeatherResponse(
             )
         ),
         ForecastWeatherDayResponse(
-            dt = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(4),
+            dt = unitTimestampForDays(4),
             temp = ForecastWeatherTempResponse(
                 max = 26.1f,
                 min = 12.8f
@@ -78,7 +81,7 @@ val mockForecastResponse = ForecastWeatherResponse(
             )
         ),
         ForecastWeatherDayResponse(
-            dt = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(5),
+            dt = unitTimestampForDays(5),
             temp = ForecastWeatherTempResponse(
                 max = 26.1f,
                 min = 12.8f
@@ -88,7 +91,7 @@ val mockForecastResponse = ForecastWeatherResponse(
             )
         ),
         ForecastWeatherDayResponse(
-            dt = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(6),
+            dt = unitTimestampForDays(6),
             temp = ForecastWeatherTempResponse(
                 max = 26.1f,
                 min = 12.8f
@@ -98,7 +101,7 @@ val mockForecastResponse = ForecastWeatherResponse(
             )
         ),
         ForecastWeatherDayResponse(
-            dt = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7),
+            dt = unitTimestampForDays(7),
             temp = ForecastWeatherTempResponse(
                 max = 26.1f,
                 min = 12.8f

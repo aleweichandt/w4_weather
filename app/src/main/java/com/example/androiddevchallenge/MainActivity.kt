@@ -20,6 +20,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.androiddevchallenge.data.client.WeatherApiClient
 import com.example.androiddevchallenge.domain.repository.WeatherRepository
@@ -38,15 +39,16 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-fun createRepository(): WeatherRepository {
-    val api = WeatherApiClient()
+fun createRepository(apiKey: String): WeatherRepository {
+    val api = WeatherApiClient.buildWith(apiKey = apiKey)
     return WeatherRepository(api)
 }
 
 // Start building your app here!
 @Composable
 fun MyApp() {
-    CompositionLocalProvider(LocalWeatherRepository provides createRepository()) {
+    val apiKey = stringResource(id = R.string.openweather_api_key)
+    CompositionLocalProvider(LocalWeatherRepository provides createRepository(apiKey)) {
         MainScreen()
     }
 }

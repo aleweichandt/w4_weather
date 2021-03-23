@@ -15,33 +15,38 @@
  */
 package com.example.androiddevchallenge.data.client
 
-import com.example.androiddevchallenge.domain.model.report.WeatherDayReport
-import com.example.androiddevchallenge.domain.model.report.WeatherForecastReport
+import com.example.androiddevchallenge.data.service.IOpenWeatherMapService
 import com.example.androiddevchallenge.domain.model.weather.TemperatureUnit
 import com.example.androiddevchallenge.domain.repository.IWeatherApi
-import kotlinx.coroutines.delay
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
-class WeatherApiClient : IWeatherApi {
+class WeatherApiClient(
+    private val service: IOpenWeatherMapService,
+    private val apiKey: String,
+) : IWeatherApi {
+    companion object {
+        fun buildWith(apiKey: String): WeatherApiClient {
+            val retrofit = Retrofit.Builder()
+                .baseUrl(IOpenWeatherMapService.baseUrl)
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+            val service = retrofit.create(IOpenWeatherMapService::class.java)
+            return WeatherApiClient(service = service, apiKey = apiKey)
+        }
+    }
 
     override suspend fun getCurrentReportFor(
         city: String,
         unit: TemperatureUnit
-    ): WeatherDayReport? {
-        delay(3000L) // TODO remove
-        if (city.length < 3) {
-            return null
-        }
-        return mockCurrentResponse.toWeatherDailyReport(unit)
-    }
+    ) = service.getCurrentWeatherFor(
+        city = city, key = apiKey, units = unit.system
+    ).body()?.toWeatherDailyReport(unit)
 
     override suspend fun getForecastReportFor(
         city: String,
         unit: TemperatureUnit
-    ): WeatherForecastReport? {
-        delay(3000L) // TODO remove
-        if (city.length < 4) {
-            return null
-        }
-        return mockForecastResponse.toWeatherForecastReport(unit)
-    }
+    ) = service.getForecastWeatherFor(
+        city = city, key = apiKey, days = 7, units = unit.system
+    ).body()?.toWeatherForecastReport(unit)
 }

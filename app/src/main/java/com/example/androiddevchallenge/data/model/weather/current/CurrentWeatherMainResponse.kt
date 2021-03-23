@@ -15,8 +15,10 @@
  */
 package com.example.androiddevchallenge.data.model.weather.current
 
+import com.squareup.moshi.Json
+
 data class CurrentWeatherMainResponse(
     val temp: Float,
-    val minTemp: Float, // "temp_min"
-    val maxTemp: Float // "temp_max
+    @Json(name = "temp_min") val minTemp: Float,
+    @Json(name = "temp_max") val maxTemp: Float
 )
